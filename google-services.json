@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "86772588655",
+    "project_id": "hacontrolroom",
+    "storage_bucket": "hacontrolroom.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86772588655:android:d2f3691f27f555e084ad9a",
+        "android_client_info": {
+          "package_name": "com.xtimmy86x.controlroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnM3wxOdl3PWquc0__aL1mFWD-z6NR2gs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
