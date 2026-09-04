@@ -4,7 +4,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { request } from './api.js';
 import { secureStore } from './secure-store.js';
 
-const APP_VERSION = '0.2.1';
+const APP_VERSION = '0.2.2';
 let listenersInstalled = false;
 let pushStartedForToken = null;
 let registered = false;
