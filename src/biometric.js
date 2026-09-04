@@ -81,6 +81,21 @@ async function disableBiometrics() {
   ]);
 }
 
+async function clearSavedSession() {
+  await Promise.all([
+    secureStore.remove('token'),
+    secureStore.remove('user'),
+  ]);
+}
+
+async function disableAndRequirePassword() {
+  await Promise.all([
+    disableBiometrics(),
+    clearSavedSession(),
+  ]);
+  window.location.reload();
+}
+
 function showEnabledToast() {
   let toast = document.querySelector('#bio-toast');
   if (!toast) {
@@ -171,16 +186,14 @@ async function showLockGate() {
   unlockButton?.addEventListener('click', tryUnlock);
 
   host.querySelector('[data-bio-password]')?.addEventListener('click', async () => {
-    await Promise.all([
-      secureStore.remove('token'),
-      secureStore.remove('user'),
-    ]);
+    await clearSavedSession();
     window.location.reload();
   });
 
+  // Disabling the protection never reveals the already-authenticated runtime
+  // behind the gate. A normal password login is required first.
   host.querySelector('[data-bio-disable]')?.addEventListener('click', async () => {
-    await disableBiometrics();
-    clearLayer();
+    await disableAndRequirePassword();
   });
 
   // Open the native prompt immediately. If the user cancels, the gate remains
@@ -212,8 +225,15 @@ async function initialize() {
 
     if (!session.token) {
       clearLayer();
-    } else if (session.enabled && await availability()) {
-      await showLockGate();
+    } else if (session.enabled) {
+      if (await availability()) {
+        await showLockGate();
+      } else {
+        // If a previously configured biometric method is no longer available,
+        // fail closed to a normal password login instead of bypassing the gate.
+        await disableAndRequirePassword();
+        return;
+      }
     } else {
       clearLayer();
       if (!session.asked) {
