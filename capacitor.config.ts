@@ -8,6 +8,9 @@ const config: CapacitorConfig = {
     CapacitorHttp: {
       enabled: true,
     },
+    PushNotifications: {
+      presentationOptions: ['sound', 'alert', 'banner', 'list'],
+    },
   },
   android: {
     allowMixedContent: false,
