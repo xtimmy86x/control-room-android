@@ -1,0 +1,21 @@
+{
+  "name": "control-room-android",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "android:prepare": "npm run build && node scripts/prepare-android.mjs",
+    "android:sync": "npm run build && node scripts/prepare-android.mjs && npx cap sync android",
+    "android:open": "npm run android:sync && npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.1"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.5.1",
+    "@capacitor/cli": "8.5.1",
+    "vite": "^7.0.0"
+  }
+}
