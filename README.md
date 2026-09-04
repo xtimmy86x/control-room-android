@@ -1,15 +1,42 @@
 # HA Control Room Android
 
+## 0.2.0 — Firebase Cloud Messaging
+
+Native Android push notifications are now integrated alongside the existing live WebSocket and REST fallback.
+
+- Android notification permission handling;
+- FCM device registration in HA Control Room 0.7.0;
+- separate `warning` and `critical` notification channels;
+- push device removed from the backend on logout;
+- tapping a notification opens the Alert Center;
+- top bar reports `PUSH` or `NO PUSH`.
+
+### Firebase setup
+
+Register the Android app in Firebase with package name:
+
+```text
+com.xtimmy86x.controlroom
+```
+
+Download `google-services.json` and place it in the repository root. Capacitor's Push Notifications plugin supplies the Firebase Messaging Android dependency; no manual Firebase SDK code is required.
+
+The APK still builds without `google-services.json`; in that case the application works normally but push registration remains unavailable.
+
+---
+
+# HA Control Room Android
+
 Android client for **HA Control Room**.
 
-Current version: **0.1.1**
+Current version: **0.2.0**
 
 ## 0.1.1
 
-- fixes the black screen seen during Android startup;
-- registers the native SecureStore plugin before the Capacitor bridge initializes;
-- adds an immediate bootstrap screen so native/session errors can no longer leave an empty WebView;
-- keeps the login flow available even if session restore fails.
+- fixes black screen during Android startup;
+- registers the native SecureStore plugin before Capacitor bridge initialization;
+- always renders the login UI before restoring the native session;
+- storage cleanup failures can no longer leave the WebView empty.
 
 ## Included
 
