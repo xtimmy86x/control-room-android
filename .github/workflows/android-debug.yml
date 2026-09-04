@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_SIGNING_STORE_FILE: ${{ github.workspace }}/.signing/control-room-upload.jks
+      ANDROID_SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
+      ANDROID_SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+      ANDROID_SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
@@ -21,6 +26,19 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      - name: Restore stable Android signing key
+        env:
+          ANDROID_SIGNING_KEYSTORE_B64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$ANDROID_SIGNING_KEYSTORE_B64" ]; then
+            mkdir -p .signing
+            printf '%s' "$ANDROID_SIGNING_KEYSTORE_B64" | base64 --decode > "$ANDROID_SIGNING_STORE_FILE"
+            chmod 600 "$ANDROID_SIGNING_STORE_FILE"
+            echo "Stable Android signing key restored."
+          else
+            echo "::warning::ANDROID_SIGNING_KEYSTORE_B64 is not configured. This APK will use GitHub runner debug signing and cannot update previous CI builds."
+          fi
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
@@ -32,6 +50,12 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
+
+      - name: Show APK version
+        working-directory: android
+        run: |
+          echo "package.json version: $(node -p \"require('../package.json').version\")"
+          grep -E 'versionCode|versionName' app/build.gradle | head -2
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
