@@ -1,6 +1,6 @@
 #notification-deeplink-layer {
   position: relative;
-  z-index: 8500;
+  z-index: 900;
 }
 
 .deep-link-overlay {
