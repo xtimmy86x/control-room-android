@@ -1,6 +1,6 @@
 {
   "name": "control-room-android",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,7 +11,8 @@
     "android:open": "npm run android:sync && npx cap open android"
   },
   "dependencies": {
-    "@capacitor/core": "8.5.1"
+    "@capacitor/core": "8.5.1",
+    "@capacitor/push-notifications": "8.1.2"
   },
   "devDependencies": {
     "@capacitor/android": "8.5.1",
