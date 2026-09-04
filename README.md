@@ -2,7 +2,14 @@
 
 Android client for **HA Control Room**.
 
-Current version: **0.1.0**
+Current version: **0.1.1**
+
+## 0.1.1
+
+- fixes the black screen seen during Android startup;
+- registers the native SecureStore plugin before the Capacitor bridge initializes;
+- adds an immediate bootstrap screen so native/session errors can no longer leave an empty WebView;
+- keeps the login flow available even if session restore fails.
 
 ## Included
 
