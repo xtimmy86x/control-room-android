@@ -30,14 +30,15 @@ jobs:
         env:
           ANDROID_SIGNING_KEYSTORE_B64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_B64 }}
         run: |
-          if [ -n "$ANDROID_SIGNING_KEYSTORE_B64" ]; then
-            mkdir -p .signing
-            printf '%s' "$ANDROID_SIGNING_KEYSTORE_B64" | base64 --decode > "$ANDROID_SIGNING_STORE_FILE"
-            chmod 600 "$ANDROID_SIGNING_STORE_FILE"
-            echo "Stable Android signing key restored."
-          else
-            echo "::warning::ANDROID_SIGNING_KEYSTORE_B64 is not configured. This APK will use GitHub runner debug signing and cannot update previous CI builds."
-          fi
+          test -n "$ANDROID_SIGNING_KEYSTORE_B64" || { echo "::error::ANDROID_SIGNING_KEYSTORE_B64 missing"; exit 1; }
+          test -n "$ANDROID_SIGNING_STORE_PASSWORD" || { echo "::error::ANDROID_SIGNING_PASSWORD missing"; exit 1; }
+          test -n "$ANDROID_SIGNING_KEY_ALIAS" || { echo "::error::ANDROID_SIGNING_KEY_ALIAS missing"; exit 1; }
+          mkdir -p .signing
+          printf '%s' "$ANDROID_SIGNING_KEYSTORE_B64" | base64 --decode > "$ANDROID_SIGNING_STORE_FILE"
+          chmod 600 "$ANDROID_SIGNING_STORE_FILE"
+          echo "Stable Android signing key restored."
+          keytool -list -keystore "$ANDROID_SIGNING_STORE_FILE" -storepass "$ANDROID_SIGNING_STORE_PASSWORD" -alias "$ANDROID_SIGNING_KEY_ALIAS" >/dev/null
+          echo "Signing key validated."
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -51,11 +52,13 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Show APK version
+      - name: Verify APK version and signature
         working-directory: android
         run: |
-          echo "package.json version: $(node -p \"require('../package.json').version\")"
+          echo "package.json version: $(node -e \"console.log(require('../package.json').version)\")"
           grep -E 'versionCode|versionName' app/build.gradle | head -2
+          BUILD_TOOLS="$(ls -1 \"$ANDROID_HOME/build-tools\" | sort -V | tail -1)"
+          "$ANDROID_HOME/build-tools/$BUILD_TOOLS/apksigner" verify --print-certs app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
