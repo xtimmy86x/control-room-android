@@ -3,7 +3,6 @@ import {
   copyFileSync,
   existsSync,
   mkdirSync,
-  readFileSync,
   writeFileSync,
 } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -39,9 +38,7 @@ if (!existsSync(activityPath)) {
   throw new Error(`MainActivity.java not found at ${activityPath}`);
 }
 
-let activity = readFileSync(activityPath, 'utf8');
-if (!activity.includes('registerPlugin(SecureStorePlugin.class)')) {
-  activity = `package com.xtimmy86x.controlroom;
+const activity = `package com.xtimmy86x.controlroom;
 
 import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
@@ -49,13 +46,12 @@ import com.getcapacitor.BridgeActivity;
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         registerPlugin(SecureStorePlugin.class);
+        super.onCreate(savedInstanceState);
     }
 }
 `;
-  writeFileSync(activityPath, activity);
-}
+writeFileSync(activityPath, activity);
 
 // Debug-only LAN HTTP support. Release builds keep Android cleartext disabled.
 const debugManifest = resolve(
