@@ -55,9 +55,9 @@ jobs:
       - name: Verify APK version and signature
         working-directory: android
         run: |
-          echo "package.json version: $(node -e \"console.log(require('../package.json').version)\")"
+          node -e "console.log('package.json version:', require('../package.json').version)"
           grep -E 'versionCode|versionName' app/build.gradle | head -2
-          BUILD_TOOLS="$(ls -1 \"$ANDROID_HOME/build-tools\" | sort -V | tail -1)"
+          BUILD_TOOLS=$(ls -1 "$ANDROID_HOME/build-tools" | sort -V | tail -1)
           "$ANDROID_HOME/build-tools/$BUILD_TOOLS/apksigner" verify --print-certs app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload APK
