@@ -54,6 +54,10 @@ copyFileSync(
   resolve(root, 'native/android/SecureStorePlugin.java'),
   resolve(packageDir, 'SecureStorePlugin.java'),
 );
+copyFileSync(
+  resolve(root, 'native/android/BiometricAuthPlugin.java'),
+  resolve(packageDir, 'BiometricAuthPlugin.java'),
+);
 
 const activityPath = resolve(packageDir, 'MainActivity.java');
 if (!existsSync(activityPath)) {
@@ -69,6 +73,7 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         registerPlugin(SecureStorePlugin.class);
+        registerPlugin(BiometricAuthPlugin.class);
         super.onCreate(savedInstanceState);
     }
 }
@@ -84,6 +89,13 @@ let buildGradle = readFileSync(buildGradlePath, 'utf8');
 buildGradle = buildGradle
   .replace(/versionCode\s+\d+/, `versionCode ${versionCode}`)
   .replace(/versionName\s+["'][^"']+["']/, `versionName "${versionName}"`);
+
+if (!buildGradle.includes('androidx.biometric:biometric:1.1.0')) {
+  buildGradle = buildGradle.replace(
+    /dependencies\s*\{\s*\n/,
+    `dependencies {\n    implementation "androidx.biometric:biometric:1.1.0"\n`,
+  );
+}
 
 const signingStoreFile = process.env.ANDROID_SIGNING_STORE_FILE || '';
 const signingReady = Boolean(
@@ -118,6 +130,23 @@ if (signingReady) {
 writeFileSync(buildGradlePath, buildGradle);
 console.log(`Android version: ${versionName} (versionCode ${versionCode})`);
 
+const mainManifestPath = resolve(
+  androidDir,
+  'app/src/main/AndroidManifest.xml',
+);
+if (!existsSync(mainManifestPath)) {
+  throw new Error(`AndroidManifest.xml not found at ${mainManifestPath}`);
+}
+
+let mainManifest = readFileSync(mainManifestPath, 'utf8');
+if (!mainManifest.includes('android.permission.USE_BIOMETRIC')) {
+  mainManifest = mainManifest.replace(
+    /<application/,
+    `    <uses-permission android:name="android.permission.USE_BIOMETRIC" />\n    <uses-permission android:name="android.permission.USE_FINGERPRINT" />\n\n    <application`,
+  );
+}
+writeFileSync(mainManifestPath, mainManifest);
+
 // Debug-only LAN HTTP support. Release builds keep Android cleartext disabled.
 const debugManifest = resolve(
   androidDir,
@@ -126,10 +155,7 @@ const debugManifest = resolve(
 mkdirSync(dirname(debugManifest), { recursive: true });
 writeFileSync(
   debugManifest,
-  `<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application android:usesCleartextTraffic="true" />
-</manifest>
-`,
+  `<manifest xmlns:android="http://schemas.android.com/apk/res/android">\n    <application android:usesCleartextTraffic="true" />\n</manifest>\n`,
 );
 
 console.log('Android project prepared.');
