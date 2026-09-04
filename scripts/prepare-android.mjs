@@ -3,6 +3,7 @@ import {
   copyFileSync,
   existsSync,
   mkdirSync,
+  readFileSync,
   writeFileSync,
 } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -20,6 +21,18 @@ function run(command, args) {
 
 if (!existsSync(androidDir)) {
   run('npx', ['cap', 'add', 'android']);
+}
+
+const googleServicesCandidates = [
+  resolve(root, 'google-services.json'),
+  resolve(root, 'firebase/google-services.json'),
+];
+const googleServices = googleServicesCandidates.find(existsSync);
+if (googleServices) {
+  copyFileSync(googleServices, resolve(androidDir, 'app/google-services.json'));
+  console.log('Firebase google-services.json installed.');
+} else {
+  console.warn('google-services.json not found: APK builds, push remains unavailable.');
 }
 
 const packageDir = resolve(
