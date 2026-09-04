@@ -1,390 +1,471 @@
-/* Android 0.2.5 — final mobile-first overrides.
-   !important is intentional here: this file is loaded before the Vite bundle,
-   so these rules must win over the base stylesheet extracted from main.js. */
+/* Android 0.2.6 — balanced mobile-first sizing.
+   This stylesheet is injected at runtime after the base bundle so it wins
+   deterministically without needing desktop-scale values. */
 
 @media (max-width: 900px) {
   html {
-    -webkit-text-size-adjust: 100% !important;
-    text-size-adjust: 100% !important;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
-    font-size: 20px !important;
-    line-height: 1.55 !important;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .app-shell {
+    padding-bottom: calc(86px + env(safe-area-inset-bottom));
   }
 
   .content {
-    width: 100% !important;
-    max-width: none !important;
-    padding: 24px 18px 124px !important;
+    width: 100%;
+    max-width: none;
+    padding: 20px 16px 100px;
+    overflow-x: hidden;
   }
 
+  /* Header: readable, but always able to fit on one row. */
   .topbar {
-    min-height: calc(76px + env(safe-area-inset-top)) !important;
-    padding: env(safe-area-inset-top) 16px 12px !important;
-    align-items: center !important;
+    min-height: calc(62px + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) 10px 9px;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
   }
 
   .brand {
-    gap: 12px !important;
+    min-width: 0;
+    flex: 1 1 auto;
+    gap: 8px;
   }
 
   .brand-mark {
-    width: 46px !important;
-    height: 46px !important;
-    font-size: 14px !important;
+    width: 38px;
+    height: 38px;
+    font-size: 11px;
+    border-radius: 9px;
+  }
+
+  .brand > div:last-child {
+    min-width: 0;
   }
 
   .brand strong {
-    font-size: 18px !important;
-    line-height: 1.2 !important;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15.5px;
+    line-height: 1.2;
   }
 
   .brand span {
-    font-size: 13px !important;
+    display: none;
   }
 
   .top-actions {
-    gap: 7px !important;
+    flex: 0 0 auto;
+    gap: 4px;
   }
 
   .icon-button {
-    width: 48px !important;
-    height: 48px !important;
-    font-size: 20px !important;
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+    border-radius: 9px;
   }
 
   .live-state {
-    min-height: 42px !important;
-    height: 42px !important;
-    padding: 0 12px !important;
-    font-size: 14px !important;
-    letter-spacing: .04em !important;
+    min-height: 34px;
+    height: 34px;
+    padding: 0 8px;
+    font-size: 11.5px;
+    letter-spacing: .04em;
   }
 
   .live-state i {
-    width: 9px !important;
-    height: 9px !important;
+    width: 7px;
+    height: 7px;
   }
 
   .page-head {
-    margin-bottom: 26px !important;
+    margin-bottom: 20px;
   }
 
   .eyebrow {
-    margin-bottom: 8px !important;
-    font-size: 15px !important;
-    letter-spacing: .09em !important;
+    margin-bottom: 6px;
+    font-size: 12.5px;
+    letter-spacing: .08em;
   }
 
-  .page-head h1,
-  .site-detail-head h1 {
-    font-size: 36px !important;
-    line-height: 1.08 !important;
+  .page-head h1 {
+    font-size: 28px;
+    line-height: 1.1;
   }
 
   .page-head p {
-    margin-top: 9px !important;
-    font-size: 18px !important;
-    line-height: 1.45 !important;
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.4;
   }
 
   .metrics-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 14px !important;
-    margin-bottom: 32px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 24px;
   }
 
   .metric-card {
-    min-height: 132px !important;
-    padding: 20px 14px !important;
-    border-radius: 16px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
+    min-height: 96px;
+    padding: 14px 10px;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .metric-card strong {
-    margin: 9px 0 5px !important;
-    font-size: 36px !important;
-    line-height: 1 !important;
+    margin: 7px 0 3px;
+    font-size: 28px;
+    line-height: 1;
   }
 
   .metric-card span {
-    font-size: 17px !important;
+    font-size: 14px;
   }
 
   .metric-dot {
-    width: 10px !important;
-    height: 10px !important;
+    width: 8px;
+    height: 8px;
   }
 
   .section-block {
-    margin-top: 30px !important;
+    margin-top: 24px;
   }
 
   .section-title {
-    margin: 0 4px 14px !important;
+    margin: 0 3px 11px;
   }
 
   .section-title h2 {
-    font-size: 20px !important;
-    letter-spacing: .04em !important;
+    font-size: 17px;
+    letter-spacing: .04em;
   }
 
   .section-title span {
-    font-size: 16px !important;
+    font-size: 14px;
   }
 
   .site-list,
   .alert-list {
-    gap: 16px !important;
+    gap: 12px;
   }
 
   .site-card,
   .alert-card {
-    padding: 22px !important;
-    border-radius: 18px !important;
+    padding: 17px;
+    border-radius: 15px;
   }
 
   .site-card-top {
-    gap: 16px !important;
+    gap: 12px;
+  }
+
+  .site-card-top > div {
+    min-width: 0;
   }
 
   .site-card-top strong {
-    font-size: 21px !important;
-    line-height: 1.25 !important;
+    font-size: 18px;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .site-card-top div > span {
-    margin-top: 6px !important;
-    font-size: 16px !important;
+    margin-top: 4px;
+    font-size: 13.5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .status-pill,
   .severity {
-    padding: 9px 12px !important;
-    font-size: 15px !important;
+    padding: 6px 9px;
+    font-size: 12px;
   }
 
   .site-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
-    margin-top: 20px !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 14px;
   }
 
   .site-stats > span {
-    min-height: 84px !important;
-    justify-content: center !important;
-    gap: 6px !important;
-    padding: 14px !important;
-    border-radius: 12px !important;
-    font-size: 19px !important;
+    min-height: 64px;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15.5px;
   }
 
   .site-stats small {
-    font-size: 15px !important;
+    font-size: 12.5px;
   }
 
   .site-card-foot {
-    margin-top: 17px !important;
-    font-size: 16px !important;
+    margin-top: 12px;
+    font-size: 13px;
   }
 
   .alert-card-head strong {
-    font-size: 20px !important;
+    font-size: 17px;
   }
 
   .alert-card-head div > span {
-    margin-top: 6px !important;
-    font-size: 16px !important;
+    margin-top: 4px;
+    font-size: 13.5px;
   }
 
   .alert-message {
-    margin: 16px 0 !important;
-    font-size: 18px !important;
-    line-height: 1.55 !important;
+    margin: 12px 0;
+    font-size: 15px;
+    line-height: 1.5;
   }
 
   .alert-foot,
   .pending-meta {
-    font-size: 15px !important;
+    font-size: 12.5px;
   }
 
   .progress {
-    height: 8px !important;
-    margin-top: 12px !important;
+    height: 6px;
+    margin-top: 9px;
   }
 
+  /* Detail header: status moves below the title, eliminating horizontal overflow. */
   .site-detail-head {
-    grid-template-columns: 56px minmax(0, 1fr) auto !important;
-    gap: 15px !important;
-    margin-bottom: 26px !important;
+    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 4px 11px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .site-detail-head > div {
+    min-width: 0;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .site-detail-head .eyebrow {
+    font-size: 12px;
+  }
+
+  .site-detail-head h1 {
+    max-width: 100%;
+    font-size: clamp(24px, 7vw, 29px);
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .site-detail-head > .status-pill {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    margin-top: 2px;
   }
 
   .back-button {
-    width: 56px !important;
-    height: 56px !important;
-    border-radius: 14px !important;
-    font-size: 32px !important;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    font-size: 27px;
   }
 
   .detail-grid {
-    grid-template-columns: 1fr !important;
-    gap: 18px !important;
+    grid-template-columns: 1fr;
+    gap: 13px;
   }
 
   .detail-card {
-    padding: 26px !important;
-    border-radius: 19px !important;
+    padding: 19px;
+    border-radius: 16px;
   }
 
   .detail-card h2 {
-    margin-bottom: 20px !important;
-    font-size: 20px !important;
-    letter-spacing: .06em !important;
+    margin-bottom: 15px;
+    font-size: 17px;
+    letter-spacing: .06em;
   }
 
   .detail-body {
-    gap: 15px !important;
+    gap: 11px;
   }
 
   .kv {
-    gap: 18px !important;
-    padding: 5px 0 15px !important;
+    gap: 14px;
+    padding: 3px 0 11px;
   }
 
   .kv span,
   .kv strong,
   .usage > div:first-child {
-    font-size: 18px !important;
+    font-size: 15.5px;
+  }
+
+  .kv strong {
+    max-width: 58%;
+    overflow-wrap: anywhere;
   }
 
   .usage {
-    gap: 9px !important;
+    gap: 6px;
   }
 
   .usage-track {
-    height: 10px !important;
+    height: 7px;
   }
 
   .problem-list,
   .plc-list {
-    gap: 11px !important;
-    margin-top: 10px !important;
+    gap: 8px;
+    margin-top: 7px;
   }
 
   .problem-list > div,
   .plc-list > div {
-    padding: 15px !important;
-    border-radius: 12px !important;
+    padding: 11px 12px;
+    border-radius: 10px;
   }
 
   .problem-list strong,
   .plc-list strong {
-    font-size: 17px !important;
+    font-size: 15px;
   }
 
   .problem-list span,
   .plc-list span {
-    margin-top: 5px !important;
-    font-size: 15px !important;
+    margin-top: 3px;
+    font-size: 13px;
   }
 
   .good-state,
   .neutral-state,
   .empty-state {
-    padding: 22px 18px !important;
-    border-radius: 13px !important;
-    font-size: 17px !important;
-    line-height: 1.5 !important;
+    padding: 16px 14px;
+    border-radius: 11px;
+    font-size: 14.5px;
+    line-height: 1.45;
   }
 
   .login-card {
-    width: min(520px, 100%) !important;
-    padding: 32px 26px !important;
-    border-radius: 21px !important;
+    width: min(460px, 100%);
+    padding: 26px 21px;
+    border-radius: 18px;
   }
 
   .login-brand h1 {
-    font-size: 27px !important;
+    font-size: 23px;
   }
 
   .login-brand p {
-    font-size: 16px !important;
+    font-size: 14px;
   }
 
   #login-form {
-    gap: 20px !important;
+    gap: 16px;
   }
 
   #login-form label span {
-    margin-bottom: 9px !important;
-    font-size: 15px !important;
+    margin-bottom: 7px;
+    font-size: 12.5px;
   }
 
   #login-form input {
-    height: 58px !important;
-    padding: 0 16px !important;
-    font-size: 19px !important;
-    border-radius: 12px !important;
+    height: 50px;
+    padding: 0 14px;
+    font-size: 16px;
+    border-radius: 10px;
   }
 
   .primary {
-    min-height: 58px !important;
-    font-size: 19px !important;
-    border-radius: 12px !important;
+    min-height: 50px;
+    font-size: 16px;
+    border-radius: 10px;
   }
 
   .form-error {
-    padding: 14px !important;
-    font-size: 16px !important;
+    padding: 11px;
+    font-size: 13px;
   }
 
   .login-note {
-    font-size: 15px !important;
+    font-size: 12.5px;
   }
 
   .bottom-nav {
-    left: 16px !important;
-    right: 16px !important;
-    bottom: max(14px, env(safe-area-inset-bottom)) !important;
-    gap: 8px !important;
-    padding: 8px !important;
-    border-radius: 19px !important;
+    left: 12px;
+    right: 12px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    gap: 5px;
+    padding: 5px;
+    border-radius: 15px;
   }
 
   .bottom-nav button {
-    min-height: 70px !important;
-    gap: 10px !important;
-    border-radius: 14px !important;
-    font-size: 19px !important;
+    min-height: 56px;
+    gap: 7px;
+    border-radius: 11px;
+    font-size: 16px;
   }
 
   .bottom-nav b {
-    min-width: 27px !important;
-    height: 27px !important;
-    font-size: 13px !important;
+    min-width: 22px;
+    height: 22px;
+    font-size: 11px;
   }
 
   .nav-icon {
-    font-size: 23px !important;
+    font-size: 18px;
   }
 }
 
-@media (max-width: 390px) {
-  .topbar {
-    flex-wrap: wrap !important;
+@media (max-width: 360px) {
+  .content {
+    padding-inline: 12px;
   }
 
-  .brand {
-    flex: 1 1 auto !important;
+  .brand strong {
+    font-size: 14.5px;
   }
 
-  .top-actions {
-    width: 100% !important;
-    justify-content: flex-end !important;
-    padding-top: 8px !important;
+  .brand-mark {
+    width: 35px;
+    height: 35px;
+  }
+
+  .icon-button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .live-state {
+    height: 32px;
+    min-height: 32px;
+    padding-inline: 7px;
+    font-size: 10.5px;
+  }
+
+  .page-head h1 {
+    font-size: 26px;
   }
 }
