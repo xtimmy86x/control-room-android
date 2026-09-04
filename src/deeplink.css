@@ -190,6 +190,27 @@
   font-size: 14px;
 }
 
+.deep-link-origin-highlight {
+  position: relative;
+  border-color: #5a93c2 !important;
+  box-shadow: 0 0 0 2px rgba(90,147,194,.20), 0 0 28px rgba(90,147,194,.13) !important;
+}
+
+.deep-link-origin-highlight::before {
+  content: 'APERTO DA NOTIFICA';
+  position: absolute;
+  top: -9px;
+  left: 14px;
+  padding: 3px 7px;
+  border: 1px solid #355d80;
+  border-radius: 999px;
+  background: #132535;
+  color: #9bc8eb;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .05em;
+}
+
 @media (max-width: 520px) {
   .deep-link-overlay {
     padding-inline: 12px;
