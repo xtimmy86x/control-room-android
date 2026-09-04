@@ -1,0 +1,196 @@
+/* Control Room Android 0.2.2 — readability pass */
+
+body {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.login-card {
+  width: min(460px, 100%);
+  padding: 28px 24px;
+}
+
+.login-brand h1 { font-size: 22px; }
+.login-brand p { font-size: 12px; }
+
+#login-form { gap: 17px; }
+#login-form label span {
+  margin-bottom: 7px;
+  font-size: 11px;
+}
+#login-form input {
+  height: 50px;
+  padding-inline: 14px;
+  font-size: 16px;
+}
+.primary {
+  min-height: 50px;
+  font-size: 15px;
+}
+.form-error { font-size: 12px; }
+.login-note { font-size: 11px; }
+
+.topbar {
+  min-height: calc(66px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 14px 10px;
+}
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  font-size: 11px;
+}
+.brand strong { font-size: 13px; }
+.brand span { font-size: 10px; }
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+}
+.live-state {
+  min-height: 32px;
+  padding-inline: 9px;
+  font-size: 10px;
+}
+
+.content {
+  padding: 22px 15px 28px;
+}
+
+.eyebrow {
+  margin-bottom: 6px;
+  font-size: 10px;
+}
+.page-head h1,
+.site-detail-head h1 {
+  font-size: 26px;
+}
+.page-head p {
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.metrics-grid {
+  gap: 8px;
+  margin-bottom: 22px;
+}
+.metric-card {
+  min-height: 82px;
+  padding: 13px 8px;
+}
+.metric-card strong {
+  margin: 6px 0 3px;
+  font-size: 21px;
+}
+.metric-card span { font-size: 10.5px; }
+
+.section-block { margin-top: 22px; }
+.section-title { margin-bottom: 10px; }
+.section-title h2 { font-size: 13px; }
+.section-title span { font-size: 11px; }
+
+.site-list,
+.alert-list { gap: 10px; }
+.site-card,
+.alert-card,
+.detail-card {
+  padding: 15px;
+  border-radius: 13px;
+}
+.site-card-top strong { font-size: 15px; }
+.site-card-top div > span { font-size: 11px; }
+
+.status-pill,
+.severity {
+  padding: 6px 8px;
+  font-size: 10px;
+}
+
+.site-stats {
+  gap: 7px;
+  margin-top: 14px;
+}
+.site-stats > span {
+  min-height: 50px;
+  justify-content: center;
+  padding: 8px 6px;
+  font-size: 12px;
+}
+.site-stats small { font-size: 9px; }
+.site-card-foot {
+  margin-top: 12px;
+  font-size: 10.5px;
+}
+
+.alert-card-head strong { font-size: 14px; }
+.alert-card-head div > span { font-size: 11px; }
+.alert-message {
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.alert-foot,
+.pending-meta { font-size: 10.5px; }
+
+.bottom-nav {
+  padding: 6px;
+}
+.bottom-nav button {
+  min-height: 56px;
+  font-size: 13px;
+}
+.bottom-nav b {
+  min-width: 19px;
+  height: 19px;
+  font-size: 9px;
+}
+.nav-icon { font-size: 18px; }
+
+.site-detail-head {
+  grid-template-columns: 42px minmax(0,1fr) auto;
+  gap: 11px;
+  margin-bottom: 18px;
+}
+.back-button {
+  width: 42px;
+  height: 42px;
+  font-size: 24px;
+}
+.detail-grid { gap: 11px; }
+.detail-card h2 {
+  margin-bottom: 13px;
+  font-size: 12.5px;
+}
+.detail-body { gap: 10px; }
+
+.kv {
+  padding-bottom: 9px;
+}
+.kv span { font-size: 12px; }
+.kv strong { font-size: 12px; }
+.usage > div:first-child { font-size: 12px; }
+
+.problem-list,
+.plc-list { gap: 7px; }
+.problem-list > div,
+.plc-list > div { padding: 10px; }
+.problem-list strong,
+.plc-list strong { font-size: 12px; }
+.problem-list span,
+.plc-list span { font-size: 10.5px; }
+
+.good-state,
+.neutral-state,
+.empty-state {
+  padding: 16px;
+  font-size: 12px;
+}
+
+@media (max-width: 380px) {
+  .top-actions { gap: 4px; }
+  .live-state { padding-inline: 7px; font-size: 9px; }
+  .icon-button { width: 38px; height: 38px; }
+  .page-head h1,
+  .site-detail-head h1 { font-size: 24px; }
+  .metric-card span { font-size: 10px; }
+}
