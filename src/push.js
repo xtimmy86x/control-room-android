@@ -4,7 +4,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { request } from './api.js';
 import { secureStore } from './secure-store.js';
 
-const APP_VERSION = '0.2.0';
+const APP_VERSION = '0.2.1';
 let listenersInstalled = false;
 let pushStartedForToken = null;
 let registered = false;
@@ -23,8 +23,9 @@ async function getOrCreateDeviceId() {
 
 function updateUi() {
   document.querySelectorAll('.login-brand p').forEach(element => {
-    if (element.textContent?.startsWith('Android ·')) {
-      element.textContent = `Android · ${APP_VERSION}`;
+    const expected = `Android · ${APP_VERSION}`;
+    if (element.textContent?.startsWith('Android ·') && element.textContent !== expected) {
+      element.textContent = expected;
     }
   });
 
@@ -36,10 +37,16 @@ function updateUi() {
       pill.id = 'push-pill';
       pill.className = 'live-state';
       pill.title = 'Push notifications';
+      pill.innerHTML = '<i></i><span data-push-label></span>';
       actions.prepend(pill);
     }
+
     pill.classList.toggle('online', registered);
-    pill.innerHTML = `<i></i>${registered ? 'PUSH' : 'NO PUSH'}`;
+    const label = pill.querySelector('[data-push-label]');
+    const expected = registered ? 'PUSH' : 'NO PUSH';
+    if (label && label.textContent !== expected) {
+      label.textContent = expected;
+    }
   }
 
   if (pendingOpenAlerts) {
@@ -51,9 +58,19 @@ function updateUi() {
   }
 }
 
-const observer = new MutationObserver(updateUi);
+let uiUpdateScheduled = false;
+function scheduleUiUpdate() {
+  if (uiUpdateScheduled) return;
+  uiUpdateScheduled = true;
+  requestAnimationFrame(() => {
+    uiUpdateScheduled = false;
+    updateUi();
+  });
+}
+
+const observer = new MutationObserver(scheduleUiUpdate);
 observer.observe(document.documentElement, { childList: true, subtree: true });
-updateUi();
+scheduleUiUpdate();
 
 async function loadAuth() {
   const [baseUrl, token] = await Promise.all([
@@ -84,7 +101,7 @@ async function registerBackend(fcmToken) {
 
   registered = true;
   lastAuth = { ...auth, deviceId };
-  updateUi();
+  scheduleUiUpdate();
 }
 
 async function unregisterPreviousDevice() {
@@ -109,7 +126,7 @@ async function unregisterPreviousDevice() {
   registered = false;
   pushStartedForToken = null;
   lastAuth = null;
-  updateUi();
+  scheduleUiUpdate();
 }
 
 async function installListeners() {
@@ -120,14 +137,14 @@ async function installListeners() {
     registerBackend(token.value).catch(error => {
       registered = false;
       console.error('Unable to register FCM device', error);
-      updateUi();
+      scheduleUiUpdate();
     });
   });
 
   await PushNotifications.addListener('registrationError', error => {
     registered = false;
     console.warn('FCM registration unavailable', error);
-    updateUi();
+    scheduleUiUpdate();
   });
 
   await PushNotifications.addListener('pushNotificationReceived', notification => {
@@ -136,7 +153,7 @@ async function installListeners() {
 
   await PushNotifications.addListener('pushNotificationActionPerformed', () => {
     pendingOpenAlerts = true;
-    updateUi();
+    scheduleUiUpdate();
   });
 }
 
@@ -177,7 +194,7 @@ async function startPush(auth) {
     }
     if (permission.receive !== 'granted') {
       registered = false;
-      updateUi();
+      scheduleUiUpdate();
       return;
     }
 
@@ -185,7 +202,7 @@ async function startPush(auth) {
   } catch (error) {
     registered = false;
     console.warn('Push setup unavailable', error);
-    updateUi();
+    scheduleUiUpdate();
   }
 }
 
