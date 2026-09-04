@@ -1,196 +1,428 @@
-/* Control Room Android 0.2.2 — readability pass */
+/* Control Room Android 0.2.3 — aggressive mobile readability */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.login-screen {
+  padding-inline: 18px;
+}
+
+.login-card {
+  width: min(480px, 100%);
+  padding: 30px 24px;
+  border-radius: 20px;
+}
+
+.login-brand {
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.brand-mark.large {
+  width: 54px;
+  height: 54px;
+  font-size: 14px;
+}
+
+.login-brand h1 {
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.login-brand p {
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+#login-form {
+  gap: 19px;
+}
+
+#login-form label span {
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+#login-form input {
+  height: 56px;
+  padding-inline: 16px;
+  font-size: 18px;
+  border-radius: 11px;
+}
+
+.primary {
+  min-height: 56px;
+  font-size: 17px;
+  border-radius: 11px;
+}
+
+.form-error {
+  padding: 12px;
+  font-size: 14px;
+}
+
+.login-note {
+  margin-top: 20px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.topbar {
+  min-height: calc(72px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 14px 11px;
+  align-items: center;
+}
+
+.brand {
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  font-size: 12px;
+}
+
+.brand strong {
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.brand span {
+  margin-top: 3px;
+  font-size: 12px;
+}
+
+.top-actions {
+  gap: 6px;
+}
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.live-state {
+  min-height: 36px;
+  padding-inline: 10px;
+  font-size: 12px;
+  letter-spacing: .05em;
+}
+
+.live-state i {
+  width: 8px;
+  height: 8px;
+}
+
+.content {
+  padding: 24px 16px 30px;
+}
+
+.eyebrow {
+  margin-bottom: 7px;
+  font-size: 13px;
+  letter-spacing: .1em;
+}
+
+.page-head,
+.site-detail-head {
+  margin-bottom: 20px;
+}
+
+.page-head h1,
+.site-detail-head h1 {
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.page-head p {
+  margin-top: 7px;
   font-size: 16px;
   line-height: 1.45;
 }
 
-.login-card {
-  width: min(460px, 100%);
-  padding: 28px 24px;
-}
-
-.login-brand h1 { font-size: 22px; }
-.login-brand p { font-size: 12px; }
-
-#login-form { gap: 17px; }
-#login-form label span {
-  margin-bottom: 7px;
-  font-size: 11px;
-}
-#login-form input {
-  height: 50px;
-  padding-inline: 14px;
-  font-size: 16px;
-}
-.primary {
-  min-height: 50px;
-  font-size: 15px;
-}
-.form-error { font-size: 12px; }
-.login-note { font-size: 11px; }
-
-.topbar {
-  min-height: calc(66px + env(safe-area-inset-top));
-  padding: env(safe-area-inset-top) 14px 10px;
-}
-.brand-mark {
-  width: 38px;
-  height: 38px;
-  font-size: 11px;
-}
-.brand strong { font-size: 13px; }
-.brand span { font-size: 10px; }
-
-.icon-button {
-  width: 40px;
-  height: 40px;
-  font-size: 18px;
-}
-.live-state {
-  min-height: 32px;
-  padding-inline: 9px;
-  font-size: 10px;
-}
-
-.content {
-  padding: 22px 15px 28px;
-}
-
-.eyebrow {
-  margin-bottom: 6px;
-  font-size: 10px;
-}
-.page-head h1,
-.site-detail-head h1 {
-  font-size: 26px;
-}
-.page-head p {
-  margin-top: 6px;
-  font-size: 13px;
-}
-
 .metrics-grid {
-  gap: 8px;
-  margin-bottom: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
 }
-.metric-card {
-  min-height: 82px;
-  padding: 13px 8px;
-}
-.metric-card strong {
-  margin: 6px 0 3px;
-  font-size: 21px;
-}
-.metric-card span { font-size: 10.5px; }
 
-.section-block { margin-top: 22px; }
-.section-title { margin-bottom: 10px; }
-.section-title h2 { font-size: 13px; }
-.section-title span { font-size: 11px; }
+.metric-card {
+  min-height: 104px;
+  padding: 16px 10px;
+  border-radius: 13px;
+}
+
+.metric-card strong {
+  margin: 8px 0 4px;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.metric-card span {
+  font-size: 14px;
+}
+
+.metric-dot {
+  width: 8px;
+  height: 8px;
+}
+
+.section-block {
+  margin-top: 26px;
+}
+
+.section-title {
+  margin-bottom: 12px;
+}
+
+.section-title h2 {
+  font-size: 16px;
+  letter-spacing: .05em;
+}
+
+.section-title span {
+  font-size: 14px;
+}
 
 .site-list,
-.alert-list { gap: 10px; }
+.alert-list {
+  gap: 12px;
+}
+
 .site-card,
 .alert-card,
 .detail-card {
-  padding: 15px;
-  border-radius: 13px;
+  padding: 18px;
+  border-radius: 15px;
 }
-.site-card-top strong { font-size: 15px; }
-.site-card-top div > span { font-size: 11px; }
+
+.site-card-top {
+  gap: 14px;
+}
+
+.site-card-top strong {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.site-card-top div > span {
+  margin-top: 5px;
+  font-size: 14px;
+}
 
 .status-pill,
 .severity {
-  padding: 6px 8px;
-  font-size: 10px;
+  padding: 8px 10px;
+  font-size: 13px;
 }
 
 .site-stats {
-  gap: 7px;
-  margin-top: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+  margin-top: 16px;
 }
+
 .site-stats > span {
-  min-height: 50px;
+  min-height: 64px;
   justify-content: center;
-  padding: 8px 6px;
+  padding: 10px 9px;
+  font-size: 16px;
+}
+
+.site-stats small {
   font-size: 12px;
 }
-.site-stats small { font-size: 9px; }
+
 .site-card-foot {
-  margin-top: 12px;
-  font-size: 10.5px;
+  margin-top: 14px;
+  font-size: 13px;
 }
 
-.alert-card-head strong { font-size: 14px; }
-.alert-card-head div > span { font-size: 11px; }
-.alert-message {
-  margin: 12px 0;
-  font-size: 13px;
-  line-height: 1.55;
+.alert-card-head {
+  gap: 14px;
 }
+
+.alert-card-head strong {
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.alert-card-head div > span {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.alert-message {
+  margin: 14px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
 .alert-foot,
-.pending-meta { font-size: 10.5px; }
+.pending-meta {
+  font-size: 13px;
+}
+
+.progress {
+  height: 6px;
+  margin-top: 10px;
+}
 
 .bottom-nav {
-  padding: 6px;
+  left: 10px;
+  right: 10px;
+  padding: 7px;
+  border-radius: 16px;
 }
+
 .bottom-nav button {
-  min-height: 56px;
-  font-size: 13px;
+  min-height: 64px;
+  gap: 9px;
+  font-size: 16px;
+  border-radius: 11px;
 }
+
 .bottom-nav b {
-  min-width: 19px;
-  height: 19px;
-  font-size: 9px;
+  min-width: 24px;
+  height: 24px;
+  font-size: 12px;
 }
-.nav-icon { font-size: 18px; }
+
+.nav-icon {
+  font-size: 22px;
+}
 
 .site-detail-head {
-  grid-template-columns: 42px minmax(0,1fr) auto;
-  gap: 11px;
-  margin-bottom: 18px;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 12px;
 }
+
 .back-button {
-  width: 42px;
-  height: 42px;
-  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  font-size: 28px;
+  border-radius: 11px;
 }
-.detail-grid { gap: 11px; }
+
+.detail-grid {
+  gap: 13px;
+}
+
 .detail-card h2 {
-  margin-bottom: 13px;
-  font-size: 12.5px;
+  margin-bottom: 15px;
+  font-size: 16px;
 }
-.detail-body { gap: 10px; }
+
+.detail-body {
+  gap: 12px;
+}
 
 .kv {
-  padding-bottom: 9px;
+  padding-bottom: 11px;
 }
-.kv span { font-size: 12px; }
-.kv strong { font-size: 12px; }
-.usage > div:first-child { font-size: 12px; }
+
+.kv span {
+  font-size: 15px;
+}
+
+.kv strong {
+  font-size: 15px;
+}
+
+.usage {
+  gap: 7px;
+}
+
+.usage > div:first-child {
+  font-size: 15px;
+}
+
+.usage-track {
+  height: 7px;
+}
 
 .problem-list,
-.plc-list { gap: 7px; }
+.plc-list {
+  gap: 9px;
+}
+
 .problem-list > div,
-.plc-list > div { padding: 10px; }
+.plc-list > div {
+  padding: 12px;
+}
+
 .problem-list strong,
-.plc-list strong { font-size: 12px; }
+.plc-list strong {
+  font-size: 15px;
+}
+
 .problem-list span,
-.plc-list span { font-size: 10.5px; }
+.plc-list span {
+  margin-top: 4px;
+  font-size: 13.5px;
+}
 
 .good-state,
 .neutral-state,
 .empty-state {
-  padding: 16px;
-  font-size: 12px;
+  padding: 20px;
+  font-size: 15px;
+  line-height: 1.5;
 }
 
-@media (max-width: 380px) {
-  .top-actions { gap: 4px; }
-  .live-state { padding-inline: 7px; font-size: 9px; }
-  .icon-button { width: 38px; height: 38px; }
+@media (max-width: 390px) {
+  .topbar {
+    min-height: calc(68px + env(safe-area-inset-top));
+    padding-inline: 10px;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand strong {
+    font-size: 14px;
+  }
+
+  .brand span {
+    display: none;
+  }
+
+  .top-actions {
+    gap: 4px;
+  }
+
+  .live-state {
+    min-height: 34px;
+    padding-inline: 8px;
+    font-size: 11px;
+  }
+
+  .icon-button {
+    width: 40px;
+    height: 40px;
+  }
+
   .page-head h1,
-  .site-detail-head h1 { font-size: 24px; }
-  .metric-card span { font-size: 10px; }
+  .site-detail-head h1 {
+    font-size: 28px;
+  }
+
+  .metric-card strong {
+    font-size: 26px;
+  }
+
+  .metric-card span {
+    font-size: 13px;
+  }
 }
