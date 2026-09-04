@@ -4,7 +4,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { request } from './api.js';
 import { secureStore } from './secure-store.js';
 
-const APP_VERSION = '0.3.0';
+const APP_VERSION = '0.4.0';
 let listenersInstalled = false;
 let pushStartedForToken = null;
 let registered = false;
@@ -151,8 +151,11 @@ async function installListeners() {
     console.info('Control Room push received', notification);
   });
 
-  await PushNotifications.addListener('pushNotificationActionPerformed', () => {
+  await PushNotifications.addListener('pushNotificationActionPerformed', action => {
     pendingOpenAlerts = true;
+    window.dispatchEvent(new CustomEvent('control-room:push-open', {
+      detail: action,
+    }));
     scheduleUiUpdate();
   });
 }
