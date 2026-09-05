@@ -2,7 +2,22 @@
 
 Native Android client for **HA Control Room**.
 
-Current version: **0.4.0**
+Current version: **0.5.0**
+
+## 0.5.0 — Alert acknowledgement and mute
+
+Active alerts now expose operational controls directly in the Android Alert Center.
+
+- acknowledge / remove acknowledgement on active incidents;
+- show who acknowledged the incident and keep the state synchronized live;
+- temporarily mute a rule/site alert for 15 minutes, 1 hour, 4 hours, 24 hours or 7 days;
+- optional mute reason;
+- show active ACK and MUTE state directly on the alert card;
+- unmute immediately from the same card;
+- muting keeps monitoring active and only suppresses Telegram / FCM transition notifications;
+- actions are available to `admin` accounts; viewer accounts remain read-only.
+
+Alert actions require **HA Control Room 0.8.0+**.
 
 ## 0.4.0 — Notification deep links
 
@@ -17,8 +32,6 @@ Tapping a Control Room push notification now routes into the relevant alert cont
 - `Apri site` switches to Fleet and opens the matching site detail;
 - pending notification navigation is stored securely until authentication/biometric unlock is complete;
 - works with both `ACTIVE` and `RESOLVED` notifications.
-
-No backend change is required beyond the existing HA Control Room 0.7.0 FCM payload, which already includes the routing identifiers.
 
 ## 0.3.0 — Biometric unlock
 
@@ -54,6 +67,7 @@ No backend change is required beyond the existing HA Control Room 0.7.0 FCM payl
 - Firebase push notifications;
 - biometric unlock;
 - notification-to-alert/site deep links;
+- alert acknowledge and temporary mute;
 - logout and expired-session handling.
 
 ## Backend requirement
@@ -63,6 +77,8 @@ REST works with **HA Control Room 0.6.0+**.
 Live WebSocket updates require **HA Control Room 0.6.1+**.
 
 FCM device registration and notification routing require **HA Control Room 0.7.0+**.
+
+Alert acknowledgement and temporary mute require **HA Control Room 0.8.0+**.
 
 ## Firebase setup
 
@@ -114,4 +130,5 @@ Biometric verification is performed by Android. The app receives only the succes
 ## Roadmap
 
 - **0.4.0** — notification deep links ✅
-- next: polish notification routing / incident history / release packaging
+- **0.5.0** — alert acknowledge / mute ✅
+- next: maintenance windows / notification policy improvements
