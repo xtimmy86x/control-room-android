@@ -1,0 +1,221 @@
+.alert-operation-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 12px 0 2px;
+}
+
+.alert-operation-status.hidden {
+  display: none;
+}
+
+.alert-op-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 9px;
+  border: 1px solid #304356;
+  border-radius: 999px;
+  background: #111a23;
+  color: #aebdcb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.alert-op-badge.acknowledged {
+  border-color: rgba(72, 165, 230, .35);
+  background: rgba(72, 165, 230, .08);
+  color: #8ecfff;
+}
+
+.alert-op-badge.muted {
+  border-color: rgba(239, 179, 78, .34);
+  background: rgba(239, 179, 78, .08);
+  color: #efbd66;
+}
+
+.alert-operation-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.alert-operation-actions button {
+  min-height: 42px;
+  padding: 0 10px;
+  border: 1px solid #2a3c4e;
+  border-radius: 11px;
+  background: #101922;
+  color: #b9c7d4;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.alert-operation-actions button:active {
+  transform: translateY(1px);
+}
+
+.alert-operation-actions button:disabled {
+  opacity: .5;
+}
+
+#alert-action-layer {
+  position: relative;
+  z-index: 9500;
+}
+
+.alert-action-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  align-items: end;
+  padding: 16px 14px max(16px, env(safe-area-inset-bottom));
+  background: rgba(3, 7, 12, .74);
+  backdrop-filter: blur(9px);
+}
+
+.alert-action-sheet {
+  width: min(560px, 100%);
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #263747;
+  border-radius: 19px;
+  background: #0c141c;
+  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+  color: #dce5ef;
+}
+
+.alert-action-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.alert-action-head span {
+  display: block;
+  margin-bottom: 5px;
+  color: #77a9d2;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .09em;
+}
+
+.alert-action-head h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.alert-action-head > button {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid #2b3b4a;
+  border-radius: 11px;
+  background: #111a23;
+  color: #9cabb9;
+  font-size: 20px;
+}
+
+.alert-action-sheet > p {
+  margin: 14px 0 18px;
+  color: #98a8b8;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.alert-action-reason {
+  display: block;
+}
+
+.alert-action-reason span {
+  display: block;
+  margin-bottom: 7px;
+  color: #8e9dad;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.alert-action-reason input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid #263747;
+  border-radius: 11px;
+  background: #091018;
+  color: #dce5ef;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.alert-mute-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 16px;
+}
+
+.alert-mute-options button {
+  min-height: 46px;
+  border: 1px solid #31516f;
+  border-radius: 11px;
+  background: #142538;
+  color: #bfe1fb;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.alert-mute-options button:last-child {
+  grid-column: 1 / -1;
+}
+
+.alert-action-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(82px + env(safe-area-inset-bottom));
+  z-index: 13000;
+  max-width: calc(100vw - 28px);
+  padding: 11px 15px;
+  border: 1px solid rgba(59, 214, 154, .3);
+  border-radius: 999px;
+  background: rgba(13, 31, 26, .97);
+  color: #75e2b8;
+  font-size: 13px;
+  font-weight: 750;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+.alert-action-toast[data-kind="error"] {
+  border-color: rgba(236, 99, 99, .35);
+  background: rgba(38, 16, 18, .97);
+  color: #f28b8b;
+}
+
+.alert-action-toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 390px) {
+  .alert-operation-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-mute-options {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-mute-options button:last-child {
+    grid-column: auto;
+  }
+}
