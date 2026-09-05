@@ -2,72 +2,64 @@
 
 Native Android client for **HA Control Room**.
 
-Current version: **0.5.0**
+Current version: **0.6.0**
+
+## 0.6.0 — Centralized updates
+
+The Android app now shows the centralized Home Assistant update inventory received by HA Control Room.
+
+- Fleet cards show the number of available updates for each site;
+- site detail adds an **Aggiornamenti** card;
+- separate counters for Home Assistant Core, OS, Supervisor, add-ons and custom integrations;
+- available items show installed → latest version;
+- update alerts continue to appear in the existing Alert Center and work with ACK / mute;
+- the update card is read-only: installation remains a deliberate Home Assistant-side action.
+
+Centralized updates require **HA Control Room 0.9.0+** and **Control Room Agent 0.7.0+** on the monitored Home Assistant instance.
 
 ## 0.5.0 — Alert acknowledgement and mute
 
-Active alerts now expose operational controls directly in the Android Alert Center.
+Active alerts expose operational controls directly in the Android Alert Center.
 
 - acknowledge / remove acknowledgement on active incidents;
-- show who acknowledged the incident and keep the state synchronized live;
 - temporarily mute a rule/site alert for 15 minutes, 1 hour, 4 hours, 24 hours or 7 days;
 - optional mute reason;
 - show active ACK and MUTE state directly on the alert card;
-- unmute immediately from the same card;
 - muting keeps monitoring active and only suppresses Telegram / FCM transition notifications;
 - actions are available to `admin` accounts; viewer accounts remain read-only.
 
-Alert actions require **HA Control Room 0.8.0+**.
-
 ## 0.4.0 — Notification deep links
 
-Tapping a Control Room push notification now routes into the relevant alert context instead of only opening the generic Alert Center.
+Tapping a Control Room push notification routes into the relevant alert context instead of only opening the generic Alert Center.
 
-- reads `incident_id`, `site_id`, `rule_id`, `severity` and `status` from the FCM data payload;
+- resolves `incident_id`, `site_id`, `rule_id`, `severity` and `status` from the FCM data payload;
 - opens the Alert Center automatically;
-- resolves the exact active or resolved incident from the Control Room API;
-- shows a dedicated alert-detail sheet for the notification;
-- highlights the matching visible alert when possible;
+- resolves active or resolved incidents;
 - provides **Alert Center** and **Apri site** actions;
-- `Apri site` switches to Fleet and opens the matching site detail;
-- pending notification navigation is stored securely until authentication/biometric unlock is complete;
-- works with both `ACTIVE` and `RESOLVED` notifications.
+- waits for authentication / biometric unlock before routing.
 
 ## 0.3.0 — Biometric unlock
 
 - optional Android biometric protection for saved sessions;
 - native Android `BiometricPrompt` integration;
-- app stays locked until authentication succeeds;
 - password fallback clears the saved session and returns to login;
-- disabling biometrics also requires a fresh password login;
 - biometric templates never leave Android's biometric subsystem.
-
-## 0.2.x — Push, mobile UI and stable updates
-
-- Firebase Cloud Messaging push notifications;
-- separate `warning` and `critical` notification channels;
-- FCM device registration in HA Control Room;
-- responsive mobile-first UI;
-- stable Android signing key for CI builds;
-- real Android `versionName` / `versionCode` values;
-- APKs can update an installed signed build without uninstalling it.
 
 ## Included
 
 - real API client, not a dashboard WebView wrapper;
 - configurable Control Room URL;
-- login through `POST /api/auth/token`;
 - Bearer token encrypted with Android Keystore + AES/GCM;
 - Fleet overview;
 - Site detail;
+- centralized update inventory;
 - Alert Center with Active and Pending;
+- alert acknowledge and temporary mute;
 - live WebSocket updates;
-- automatic reconnect;
 - REST safety refresh;
 - Firebase push notifications;
 - biometric unlock;
 - notification-to-alert/site deep links;
-- alert acknowledge and temporary mute;
 - logout and expired-session handling.
 
 ## Backend requirement
@@ -79,6 +71,8 @@ Live WebSocket updates require **HA Control Room 0.6.1+**.
 FCM device registration and notification routing require **HA Control Room 0.7.0+**.
 
 Alert acknowledgement and temporary mute require **HA Control Room 0.8.0+**.
+
+Centralized Core / OS / Supervisor / add-on / integration updates require **HA Control Room 0.9.0+** and **Control Room Agent 0.7.0+**.
 
 ## Firebase setup
 
@@ -131,4 +125,5 @@ Biometric verification is performed by Android. The app receives only the succes
 
 - **0.4.0** — notification deep links ✅
 - **0.5.0** — alert acknowledge / mute ✅
+- **0.6.0** — centralized updates ✅
 - next: maintenance windows / notification policy improvements
