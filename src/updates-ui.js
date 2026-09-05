@@ -54,6 +54,10 @@ function updateCount(site) {
   return Number(site?.updates?.summary?.total_available_count ?? 0);
 }
 
+function setBadgeText(badge, text) {
+  if (badge.textContent !== text) badge.textContent = text;
+}
+
 function decorateFleet() {
   document.querySelectorAll('.site-card[data-site]').forEach(card => {
     const site = sites.get(card.dataset.site);
@@ -71,13 +75,13 @@ function decorateFleet() {
     }
 
     if (!site.updates) {
-      badge.textContent = 'Updates —';
+      setBadgeText(badge, 'Updates —');
       badge.classList.remove('warning', 'ok');
       return;
     }
 
     const count = updateCount(site);
-    badge.textContent = count ? `Updates ${count}` : 'Aggiornato';
+    setBadgeText(badge, count ? `Updates ${count}` : 'Aggiornato');
     badge.classList.toggle('warning', count > 0);
     badge.classList.toggle('ok', count === 0);
   });
@@ -96,6 +100,15 @@ function summaryBox(value, label, warning = false) {
     </div>`;
 }
 
+function detailFingerprint(site) {
+  const data = site?.updates;
+  if (!data) return 'missing';
+  return JSON.stringify({
+    summary: data.summary || {},
+    updates: (data.updates || []).filter(item => item?.update_available === true),
+  });
+}
+
 function renderDetailCard(site) {
   const grid = document.querySelector('.detail-grid');
   if (!grid) return;
@@ -107,6 +120,10 @@ function renderDetailCard(site) {
     card.className = 'detail-card android-updates-card';
     grid.append(card);
   }
+
+  const fingerprint = detailFingerprint(site);
+  if (card.dataset.updateFingerprint === fingerprint) return;
+  card.dataset.updateFingerprint = fingerprint;
 
   const data = site?.updates;
   if (!data) {
